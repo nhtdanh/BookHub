@@ -25,6 +25,13 @@ const nhaXuatBanSchema = new Schema({
     match: [/^(https?:\/\/)?([\w-]+(\.[\w-]+)+)([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?$/, "Website không hợp lệ"],
   },
 });
-
+nhaXuatBanSchema.pre('findOneAndDelete', async function(next) {
+    const id = this.getQuery()._id;
+    const count = await mongoose.model('Sach').countDocuments({ nhaXuatBan: id });
+    if (count > 0) {
+      return next(new Error('Không thể xóa nhà xuất bản đang có sách tham chiếu.'));
+    }
+    next();
+  });
 const NhaXuatBan = mongoose.model("NhaXuatBan", nhaXuatBanSchema);
 module.exports = NhaXuatBan;

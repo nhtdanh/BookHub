@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 const docGiaSchema = new Schema({
   hoTen: {
     type: String,
-    require: true,
+    required: true,
   },
   ngaySinh: {
     type: Date,
@@ -20,23 +20,26 @@ const docGiaSchema = new Schema({
   },
   gioiTinh: {
     type: String,
-    enum: ["Nam", "Nữ", "Khác"], 
-    require: true,
+    enum: ["Nam", "Nữ", "Khác"],
+    required: true,
   },
   diaChi: {
     type: String,
-    require: true,
+    required: true,
   },
   soDienThoai: {
     type: String,
-    require: false,
+    required: false,
     match: [/^[0-9]{10,11}$/, "Số điện thoại phải gồm 10 hoặc 11 số"],
     unique: true,
   },
   email: {
     type: String,
-    require: true, // Trường SoDienThoai không bắt buộc
-    match:[/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, "Email không hợp lệ"],
+    required: true, // Trường SoDienThoai không bắt buộc
+    match: [
+      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+      "Email không hợp lệ",
+    ],
     unique: true,
   },
   tenDangNhap: {
@@ -44,7 +47,10 @@ const docGiaSchema = new Schema({
     required: true,
     minlength: 3,
     maxlength: 20,
-    match: [/^[a-zA-Z0-9_]+$/, "Tên đăng nhập chỉ chứa chữ cái, số và dấu gạch dưới"],
+    match: [
+      /^[a-zA-Z0-9_]+$/,
+      "Tên đăng nhập chỉ chứa chữ cái, số và dấu gạch dưới",
+    ],
     unique: true,
   },
   matKhau: {
@@ -58,8 +64,11 @@ const docGiaSchema = new Schema({
   },
   anhDaiDien: {
     type: String,
-    default: "",
-    match: [/^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|svg))?$/, "Đường dẫn ảnh không hợp lệ"],
+    default: "/public/uploads/avatars/default.jpg",
+    match: [
+      /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|svg))?$/,
+      "Đường dẫn ảnh không hợp lệ",
+    ],
   },
   vaiTro: {
     type: String,
@@ -68,18 +77,21 @@ const docGiaSchema = new Schema({
   },
   trangThai: {
     type: String,
-    enum: ["Hoạt động", "Bị khóa", "Hết hạn"],
+    enum: ["Hoạt động", "Vô hiệu hóa"],
     default: "Hoạt động",
   },
-  ngayTao:{
+  ngayTao: {
     type: Date,
     default: Date.now,
   },
-  ngayCapNhat:{
+  ngayCapNhat: {
     type: Date,
     default: Date.now,
   },
 });
-
+docGiaSchema.pre("findOneAndUpdate", function (next) {
+  this.set({ ngayCapNhat: Date.now() });
+  next();
+});
 const DocGia = mongoose.model("DocGia", docGiaSchema);
 module.exports = DocGia;

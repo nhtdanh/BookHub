@@ -16,7 +16,7 @@ const nhanVienSchema = new Schema({
       "Quản lý thư viện",
       "Nhan viên kiểm kê",
     ],
-    require: true,
+    required: true,
   },
   heSoLuong: {
     type: Number,

@@ -21,22 +21,20 @@ const theoDoiMuonSachSchema = new Schema({
   docGia: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "DocGia",
-    require: true,
+    required: true,
   },
   ngayMuon: {
     type: Date,
-    require: true,
   },
   ngayTra: {
     type: Date,
   },
   ngayGuiYeuCau: {
     type: Date,
-    require: true,
+    required: true,
   },
   ngayHetHan: {
     type: Date,
-    require: true,
   },
 
   trangThai: {
@@ -49,11 +47,6 @@ const theoDoiMuonSachSchema = new Schema({
       "Đã trả",
     ],
     default: "Chờ duyệt",
-  },
-  soLuong: {
-    type: Number,
-    default: 1,
-    min: 1,
   },
 });
 

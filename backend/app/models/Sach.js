@@ -8,6 +8,10 @@ const sachSchema = new Schema({
     type: String,
     required: true,
   },
+  tacGia:{
+    type: String,
+    required: true,
+  },
   nhaXuatBan: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "NhaXuatBan",
@@ -34,12 +38,12 @@ const sachSchema = new Schema({
   },
   donGia: {
     type: Number,
-    require: true,
+    required: true,
   },
-  anhBia: {
-    type: String,
-    require: true,
-  },
+  anhBia: { 
+    type: [String], 
+    default: ['/public/uploads/covers/default.png'],
+},
   soLuongTon: {
     type: Number,
     default: 0,
@@ -64,6 +68,17 @@ const sachSchema = new Schema({
     default: Date.now,
   },
 });
-
+sachSchema.pre('findOneAndUpdate', function(next) {
+    this.set({ ngayCapNhat: Date.now() });
+    next();
+  });
+sachSchema.pre('findOneAndDelete', async function(next) {
+  const id = this.getQuery()._id;
+  const count = await require('./TheoDoiMuonSach').countDocuments({ 'sachs.sach': id });
+  if (count > 0) {
+    return next(new Error('Không thể xóa sách đang tồn tại trong phiếu mượn.'));
+  }
+  next();
+});
 const Sach = mongoose.model("Sach", sachSchema);
 module.exports = Sach;
