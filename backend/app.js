@@ -1,4 +1,3 @@
-
 const express = require("express");
 const path = require("path");
 const cors = require("cors");
@@ -8,9 +7,13 @@ const ApiError = require("./app/api-error");
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3001",
+    credentials: true, // cho phép gửi cookie
+  })
+);
 app.use(express.json());
-
 
 const publicPathDirectory = path.join(__dirname, "public");
 app.use("/public", express.static(publicPathDirectory));
@@ -22,7 +25,6 @@ app.get("/", (req, res) => {
     data: "Welcome to the application",
   });
 });
-
 
 app.use("/api/v1", router);
 

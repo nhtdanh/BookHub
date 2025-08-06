@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap');
+
+:root {
+    --color-bg-main: #F4F1EA;
+    --color-bg-secondary: #FDF6E3;
+    --color-text-primary: #382110;
+    /*--color-text-secondary: #666;*/
+    --color-text-secondary: #382110;
+    --color-border: #D6CEB5;
+    --color-link: #00635D;
+    --color-link-hover: #004D40;
+    --color-btn: #EEE8D5;
+    --font-book: 'Merriweather', Georgia, serif;
+}
+
+body {
+    font-family: var(--font-book);
+    background-color: var(--color-bg-main);
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+a {
+    color: var(--color-link);
+}
+
+a:hover {
+    color: var(--color-link-hover);
+}
+
+.btn {
+    background-color: #EEE8D5;
+    border: 1px solid #D6CEB5;
+    color: #382110;
+    font-weight: 500;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+    background-color: #e0dac8;
+    transform: scale(1.02);
+    color: #004D40;
+}
+/* Cài đặt màu cho Navbar, nút... */
+.navbar {
+    background-color: var(--color-btn) !important;
+}
+
+.footer{
+    background-color: var(--color-btn) !important;
+}
+

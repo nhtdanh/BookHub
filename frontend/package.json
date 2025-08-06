@@ -11,8 +11,14 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^7.0.0",
+    "axios": "^1.11.0",
+    "bootstrap": "^5.3.7",
+    "jquery": "^3.7.1",
     "pinia": "^3.0.3",
+    "popper.js": "^1.16.1",
     "vue": "^3.5.17",
+    "vue-cookies": "^1.8.6",
     "vue-router": "^4.5.1"
   },
   "devDependencies": {
@@ -23,7 +29,6 @@
     "eslint-plugin-vue": "~10.2.0",
     "globals": "^16.2.0",
     "prettier": "3.5.3",
-    "vite": "^7.0.0",
-    "vite-plugin-vue-devtools": "^7.7.7"
+    "vite": "^7.0.0"
   }
 }

@@ -1,0 +1,1 @@
+.BookListItem{display:flex;padding-right:16px;margin-bottom:32px}.BookListItem__cover{flex-basis:150px;margin-right:32px}@media only screen and (max-width:47.9375em){.BookListItem__cover{margin-right:24px;flex-basis:80px}}.BookListItem__body{flex:1}.BookListItem__authors{padding:4px 0}.BookListItem__beneathTitle{margin-bottom:12px}
