@@ -14,5 +14,11 @@ export const useUserStore = defineStore('user', {
       this.user = user
       this.token = token
     },
+    setToken(token) {
+      this.token = token
+    },
+    setUser(user) {
+      this.user = user
+    },
   },
 })

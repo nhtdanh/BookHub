@@ -1,6 +1,6 @@
 <template>
   <div class="reader-layout" style="background-color: var(--color-bg); min-height: 100vh">
-    <NavbarComponent />
+    <NavbarComponent v-if="!$route.meta.hideNavbar"/>
     <main class="container py-4">
       <router-view />
     </main>
@@ -10,13 +10,13 @@
 
 <script>
 import NavbarComponent from '@/components/NavbarComponent.vue'
-import FooterComponent from '@/components/FooterComponent.vue'
+//import FooterComponent from '@/components/FooterComponent.vue'
 
 export default {
   name: 'ReaderLayout',
   components: {
     NavbarComponent,
-    FooterComponent
+    //FooterComponent
   }
 }
 </script>

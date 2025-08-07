@@ -13,7 +13,7 @@ async function register(req, res, next) {
 async function login(req, res, next) {
   try {
     const { user, token } = await authService.login(req.body.tenDangNhap, req.body.matKhau);
-    res.json({ code: 0, msg: 'Login successful', data: { user: { id: user._id, tenDangNhap: user.tenDangNhap }, token } });
+    res.json({ user, token });
   } catch (err) {
     next(new ApiError(401, err.message));
   }

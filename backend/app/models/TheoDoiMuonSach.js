@@ -48,6 +48,10 @@ const theoDoiMuonSachSchema = new Schema({
     ],
     default: "Chờ duyệt",
   },
+  tienPhat:{
+    type: Number,
+    default: 0
+  }
 });
 
 const TheoDoiMuonSach = mongoose.model(

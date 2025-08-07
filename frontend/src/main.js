@@ -10,14 +10,26 @@ import { useUserStore } from '@/stores/userStore'
 import Cookies from 'vue-cookies'
 
 
-const app = createApp(App)
-app.use(createPinia()) // Khởi tạo Pinia root:contentReference[oaicite:4]{index=4}
-app.use(router) // Đăng ký Vue Router
+import AuthService from '@/services/auth.service'
 
-const store = useUserStore()
-const token = Cookies.get('accessToken')
-if (token) {
-  store.token = token
-  // Optionally fetch `/docgia/me` để lấy profile
+const app = createApp(App)
+app.use(createPinia())
+
+const initializeAuth = async () => {
+  const token = Cookies.get('accessToken')
+  const userStore = useUserStore()
+  
+  if (token && !userStore.token) {
+    userStore.setToken(token)
+    try {
+      const profile = await AuthService.fetchUserProfile()
+      userStore.setUser(profile)
+    } catch (error) {
+      console.error('Lỗi khi khôi phục phiên đăng nhập:', error)
+      userStore.$reset()
+    }
+  }
 }
-app.mount('#app')
+
+app.use(router)
+initializeAuth().finally(() => app.mount('#app'))

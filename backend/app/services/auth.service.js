@@ -14,14 +14,22 @@ async function register(data) {
   return user;
 }
 
+
 async function login(tenDangNhap, matKhau) {
-  const user = await DocGia.findOne({ tenDangNhap });
-  if (!user) throw new Error('User not found');
+  const user = await DocGia.findOne({ tenDangNhap }).lean();
+  if (!user) throw new Error("User not found");
+
   const ok = await bcrypt.compare(matKhau, user.matKhau);
-  if (!ok) throw new Error('Invalid password');
+  if (!ok) throw new Error("Invalid password");
 
   const payload = { id: user._id, role: user.vaiTro };
-  const token = jwt.sign(payload, config.app.jwtSecret, { expiresIn: config.app.jwtExpiresIn });
+  const token = jwt.sign(payload, config.app.jwtSecret, {
+    expiresIn: config.app.jwtExpiresIn,
+  });
+
+  // Xóa mật khẩu khỏi user trước khi trả về
+  delete user.matKhau;
+
   return { user, token };
 }
 

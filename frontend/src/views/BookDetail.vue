@@ -6,7 +6,7 @@
                 <img :src="coverUrl" class="book-image" alt="cover" />
             </div>
             <button @click="handleBookmark" class="btn mt-3 custom-btn"
-                :class="isBookmarked ? 'btn-outline-danger' : 'btn-outline-primary'" style="width: 180px">
+                :class="isBookmarked ? 'btn-outline-danger' : 'btn-outline-success'" style="width: 180px">
                 <i :class="isBookmarked ? 'fas fa-times' : 'fas fa-bookmark'" class="me-1"></i>
                 {{ isBookmarked ? 'Bỏ đánh dấu' : 'Đánh dấu sách' }}
             </button>
@@ -87,7 +87,8 @@ export default {
 
             if (this.store.isLoggedIn) {
                 const bmRes = await api.get('/danhdau')
-                this.isBookmarked = bmRes.data.some(bm => bm.sach._id === this.book._id)
+                console.log(bmRes.data.data)
+                this.isBookmarked = bmRes.data.data.sachs.some(bm => bm.sach._id === this.book._id)
             }
         } catch (err) {
             console.error('Lỗi khi lấy dữ liệu sách hoặc đánh dấu', err)

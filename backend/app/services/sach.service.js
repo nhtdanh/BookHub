@@ -1,7 +1,7 @@
 const Sach = require("../models/Sach");
 
 // Lấy danh sách sách, hỗ trợ search theo tên và phân trang
-async function getAll({ search, page = 1, limit = 10 }) {
+async function getAll({ search, page = 1, limit = 20 }) {
   const query = {};
   if (search) query.tenSach = { $regex: search, $options: "i" };
   const skip = (page - 1) * limit;
@@ -44,4 +44,11 @@ async function updateCover(id, filename) {
   );
 }
 
-module.exports = { getAll, getById, createBook, updateBook, deleteBook, updateCover };
+module.exports = {
+  getAll,
+  getById,
+  createBook,
+  updateBook,
+  deleteBook,
+  updateCover,
+};

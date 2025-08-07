@@ -1,7 +1,7 @@
 <template>
     <div class="row">
         <div class="col-md-8 offset-md-2">
-            <h2 class="mb-4">Chỉnh sửa thông tin</h2>
+            <h2 class="mb-4">Chỉnh sửa thông tin cá nhân</h2>
             <form @submit.prevent="submit">
                 <div class="mb-3">
                     <label class="form-label">Họ và tên</label>
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import api from '@/services/api'
+import api from '@/services/api.service'
 
 export default {
     name: 'EditProfile',
@@ -59,12 +59,12 @@ export default {
         try {
             const { data } = await api.get('/docgia/me')
             this.form = {
-                hoTen: data.hoTen,
-                ngaySinh: data.ngaySinh.split('T')[0],
-                gioiTinh: data.gioiTinh,
-                diaChi: data.diaChi,
-                soDienThoai: data.soDienThoai,
-                email: data.email
+                hoTen: data.data.hoTen,
+                ngaySinh: data.data.ngaySinh.split('T')[0],
+                gioiTinh: data.data.gioiTinh,
+                diaChi: data.data.diaChi,
+                soDienThoai: data.data.soDienThoai,
+                email: data.data.email
             }
         } catch (err) {
             alert('Không tải được thông tin cá nhân')
